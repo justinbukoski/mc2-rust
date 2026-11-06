@@ -1,0 +1,40 @@
+[package]
+name = "mc2-app"
+version = "0.1.0"
+edition = "2021"
+description = "The game application: window and render loop, game states, fixed-step sim driver, camera and order input, headless mode (a port of MechCommander 2)"
+license-file = "../LICENSE-MS-SSLPL.txt"
+publish = false
+
+[lib]
+name = "mc2_app"
+
+[[bin]]
+name = "mc2"
+path = "src/main.rs"
+
+[dependencies]
+mc2-render = { path = "../mc2-render" }
+mc2-fx = { path = "../mc2-fx" }
+mc2-platform = { path = "../mc2-platform" }
+mc2-gfx = { path = "../mc2-gfx" }
+mc2-formats = { path = "../mc2-formats" }
+mc2-assets = { path = "../mc2-assets" }
+mc2-audio = { path = "../mc2-audio" }
+# The package self-test (`--selftest-play`) runs the objective-harness hooks on the production path.
+mc2-sim = { path = "../mc2-sim", features = ["test-hooks"] }
+mc2-ui = { path = "../mc2-ui" }
+mc2-campaign = { path = "../mc2-campaign" }
+mc2-sim-data = { path = "../mc2-sim-data" }
+mc2-texpack = { path = "../mc2-texpack" }
+wgpu = "=30.0.1"
+bytemuck = { version = "=1.25.2", features = ["derive"] }
+log = "0.4"
+chrono = { version = "0.4", default-features = false, features = ["clock"] }
+
+[dev-dependencies]
+serde_json = "=1.0.154"
+mc2-movie = { path = "../mc2-movie" }
+png = "=0.18.1"
+mc2-abl = { path = "../mc2-abl" }
+flate2 = "=1.1.10"

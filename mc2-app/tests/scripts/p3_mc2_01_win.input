@@ -1,0 +1,125 @@
+# P3 mc2_01 win: all actions are physical HUD hotkeys or mouse clicks on the map.
+# Coordinates are for the production 800x600 logical HUD. The tactical-map rect is
+# x=4..165, y=435..596; right-clicks issue moves in the shipped Left/Right (AOE)
+# mouse profile. Each left-click first centres the camera on the named target; D then
+# selects Default Attack range and a right-click release at world-screen centre attacks it.
+# This file never calls the sim directly.
+#
+# 1. The opening ABL camera/movie sequence runs before normal mission input.
+# Wait 90 seconds, centre the camera on the three player mechs, then Select Visible.
+# This is a real map click followed by the HUD hotkey, not an injected selection.
+2700 move 116 540
+2701 button left down
+2702 button left up
+2730 tap E
+
+# 2. Investigate the abandoned airfield (3136, -789).
+2800 move 124 525
+2801 button right down
+2802 button right up
+
+# 3. Destroy the hangar at (3221, -277).
+3800 move 124 519
+3801 button left down
+3802 button left up
+3830 tap D
+3831 move 400 300
+3832 button right down
+3833 button right up
+
+# 4. Destroy the eight Bandit-patrol movers around (3264..3563, 1984..2197).
+4400 move 125 490
+4401 button left down
+4402 button left up
+4430 tap D
+4431 move 400 300
+4432 button right down
+4433 button right up
+5000 move 127 490
+5001 button left down
+5002 button left up
+5030 tap D
+5031 move 400 300
+5032 button right down
+5033 button right up
+5600 move 120 488
+5601 button left down
+5602 button left up
+5630 tap D
+5631 move 400 300
+5632 button right down
+5633 button right up
+6200 move 120 488
+6201 button left down
+6202 button left up
+6230 tap D
+6231 move 400 300
+6232 button right down
+6233 button right up
+6800 move 121 488
+6801 button left down
+6802 button left up
+6830 tap D
+6831 move 400 300
+6832 button right down
+6833 button right up
+7400 move 126 490
+7401 button left down
+7402 button left up
+7430 tap D
+7431 move 400 300
+7432 button right down
+7433 button right up
+8000 move 129 490
+8001 button left down
+8002 button left up
+8030 tap D
+8031 move 400 300
+8032 button right down
+8033 button right up
+8600 move 121 487
+8601 button left down
+8602 button left up
+8630 tap D
+8631 move 400 300
+8632 button right down
+8633 button right up
+
+# 5. Repair/proceed at north island (832, 2752), then destroy its four bandits.
+9200 move 95 481
+9201 button right down
+9202 button right up
+11300 move 71 476
+11301 button left down
+11302 button left up
+11330 tap D
+11331 move 400 300
+11332 button right down
+11333 button right up
+11900 move 71 476
+11901 button left down
+11902 button left up
+11930 tap D
+11931 move 400 300
+11932 button right down
+11933 button right up
+12500 move 69 476
+12501 button left down
+12502 button left up
+12530 tap D
+12531 move 400 300
+12532 button right down
+12533 button right up
+13100 move 68 476
+13101 button left down
+13102 button left up
+13130 tap D
+13131 move 400 300
+13132 button right down
+13133 button right up
+
+# 6. Finish only after the six primary goals: move every selected mech to extraction
+# (-4117, 513). The mission condition requires every surviving mech inside its 256-unit radius.
+14000 move 32 508
+14001 button right down
+14002 button right up

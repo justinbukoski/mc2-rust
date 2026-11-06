@@ -1,0 +1,16 @@
+[package]
+name = "mc2-formats"
+version = "0.1.0"
+edition = "2021"
+description = "Container and text formats: archives, packet files, FIT/INI, CSV, VFS (a port of MechCommander 2)"
+license-file = "../LICENSE-MS-SSLPL.txt"
+publish = false
+
+[lib]
+name = "mc2_formats"
+
+[dependencies]
+flate2 = "=1.1.10"
+
+[dev-dependencies]
+mc2-assets = { path = "../mc2-assets" }

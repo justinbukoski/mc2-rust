@@ -1,0 +1,6 @@
+# Copy this file to mc2.cfg (next to the mc2 program, or into the folder named in README-PLAYERS.md)
+# and set the path to your own original game data: the folder with system.cfg and the .fst files.
+# data = /path/to/game/data
+# Optional: the separately downloaded upscaled texture pack.
+# hires = off              # keep the original art (default: build an upscaled pack from your data)
+# hires = /path/to/pack     # use a ready-made pack instead

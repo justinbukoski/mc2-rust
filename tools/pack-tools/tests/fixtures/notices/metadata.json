@@ -1,0 +1,32 @@
+{"packages":[
+{"id":"app 0.1.0","name":"mc2-app","version":"0.1.0","license":null,"license_file":"../LICENSE","repository":null,"source":null,"manifest_path":"@ROOT@/ws/Cargo.toml"},
+{"id":"wsdep 0.1.0","name":"mc2-wsdep","version":"0.1.0","license":null,"license_file":null,"repository":null,"source":null,"manifest_path":"@ROOT@/ws2/Cargo.toml"},
+{"id":"alpha 1.0.0","name":"alpha","version":"1.0.0","license":"MIT OR Apache-2.0","repository":"https://example.invalid/alpha","source":"registry+https://example.invalid/index","manifest_path":"@ROOT@/crates/alpha/Cargo.toml"},
+{"id":"alpha 10.0.0","name":"alpha","version":"10.0.0","license":"MIT","repository":"","source":"registry+https://example.invalid/index","manifest_path":"@ROOT@/crates/alpha2/Cargo.toml"},
+{"id":"alpha 2.0.0","name":"alpha","version":"2.0.0","license":"MIT","repository":"","source":null,"manifest_path":"@ROOT@/crates/alpha2/Cargo.toml"},
+{"id":"beta 0.2.1","name":"beta","version":"0.2.1","license":"Zlib","repository":null,"source":"registry+https://example.invalid/index","manifest_path":"@ROOT@/crates/beta/Cargo.toml"},
+{"id":"gamma 3.0.0","name":"gamma","version":"3.0.0","license":null,"license_file":"LICENSE","repository":"https://example.invalid/gamma","source":null,"manifest_path":"@ROOT@/crates/gamma/Cargo.toml"},
+{"id":"delta 0.0.1","name":"delta","version":"0.0.1","license":null,"license_file":null,"repository":null,"source":null,"manifest_path":"@ROOT@/crates/delta/Cargo.toml"},
+{"id":"epsilon 1.1.1","name":"epsilon","version":"1.1.1","license":"BSD-3-Clause","repository":null,"source":"git+https://example.invalid/eps","manifest_path":"@ROOT@/crates/epsilon/Cargo.toml"},
+{"id":"devonly 1.0.0","name":"devonly","version":"1.0.0","license":"MIT","repository":null,"source":null,"manifest_path":"@ROOT@/crates/devonly/Cargo.toml"},
+{"id":"buildonly 1.0.0","name":"buildonly","version":"1.0.0","license":"MIT","repository":null,"source":null,"manifest_path":"@ROOT@/crates/onlybuild/Cargo.toml"}
+],
+"workspace_members":["app 0.1.0","wsdep 0.1.0"],
+"resolve":{"nodes":[
+{"id":"app 0.1.0","deps":[
+ {"pkg":"wsdep 0.1.0","dep_kinds":[{"kind":null,"target":null}]},
+ {"pkg":"alpha 1.0.0","dep_kinds":[{"kind":null,"target":null}]},
+ {"pkg":"beta 0.2.1","dep_kinds":[{"kind":"dev","target":null},{"kind":null,"target":null}]},
+ {"pkg":"devonly 1.0.0","dep_kinds":[{"kind":"dev","target":null}]},
+ {"pkg":"buildonly 1.0.0","dep_kinds":[{"kind":"build","target":null}]}]},
+{"id":"wsdep 0.1.0","deps":[{"pkg":"gamma 3.0.0","dep_kinds":[{"kind":null,"target":null}]}]},
+{"id":"alpha 1.0.0","deps":[{"pkg":"alpha 10.0.0","dep_kinds":[{"kind":null,"target":null}]},{"pkg":"alpha 2.0.0","dep_kinds":[{"kind":null,"target":null}]},{"pkg":"delta 0.0.1","dep_kinds":[{"kind":"build","target":null}]}]},
+{"id":"alpha 10.0.0","deps":[{"pkg":"epsilon 1.1.1","dep_kinds":[{"kind":null,"target":"cfg(unix)"}]}]},
+{"id":"alpha 2.0.0","deps":[]},
+{"id":"beta 0.2.1","deps":[{"pkg":"alpha 1.0.0","dep_kinds":[{"kind":null,"target":null}]}]},
+{"id":"gamma 3.0.0","deps":[]},
+{"id":"delta 0.0.1","deps":[]},
+{"id":"epsilon 1.1.1","deps":[]},
+{"id":"devonly 1.0.0","deps":[{"pkg":"gamma 3.0.0","dep_kinds":[{"kind":null,"target":null}]}]},
+{"id":"buildonly 1.0.0","deps":[]}
+]}}

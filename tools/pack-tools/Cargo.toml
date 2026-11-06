@@ -1,0 +1,18 @@
+[package]
+name = "pack-tools"
+version = "0.1.0"
+edition = "2021"
+description = "Packaging tools: product metadata, third-party notices, deterministic archives"
+license-file = "../../LICENSE-MS-SSLPL.txt"
+publish = false
+
+[lib]
+name = "pack_tools"
+
+[[bin]]
+name = "pack-tools"
+path = "src/main.rs"
+
+[dependencies]
+crc32fast = "=1.5.2"
+serde_json = "=1.0.154"

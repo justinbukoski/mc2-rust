@@ -1,0 +1,110 @@
+# Second & "Product" — player guide
+
+Second & "Product" is a pure-Rust remake of the original game engine. It plays like the original; it is not a bit-for-bit copy.
+
+**This package does not contain the game's data.** You need your own copy of the original 2001 game (the original
+game's `data` folder, the one that contains `system.cfg` and the `.fst` archives). The data is copyrighted and is
+never distributed with the port.
+
+## Install
+
+| Platform | Package | Steps |
+|---|---|---|
+| macOS (Apple silicon, macOS 12+) | `…-macos-arm64.zip` | Unzip, drag `Second & "Product".app` anywhere. The app is ad-hoc signed, not notarised: the first time, right-click → Open (or `xattr -dr com.apple.quarantine "Second & "Product".app"`). |
+| Linux x86_64 | `…-linux-x86_64.tar.gz` | `tar xzf` it, run `./second-product.sh`. Needs a Vulkan driver (Mesa or the vendor driver) and ALSA (`libasound.so.2`); built on Fedora, so a glibc of the same age or newer. |
+| Windows x86_64 | `…-windows-x86_64.zip` | Unzip, run `mc2.exe`. Needs a Vulkan- or DirectX 12-capable GPU driver. |
+
+## Point it at your game data
+
+`mc2` looks for the data folder in this order and uses the first hit:
+
+1. the command line: `mc2 --data "/path/to/data"`
+2. the `MC2_DATA` environment variable
+3. a config file `mc2.cfg` with a line `data = /path/to/data`, found (in this order) next to the program
+   (for the macOS app: next to `Second & "Product".app`), then in the user config folder:
+   macOS `~/Library/Application Support/mc2/mc2.cfg`, Linux `~/.config/mc2/mc2.cfg`
+   (`$XDG_CONFIG_HOME/mc2/mc2.cfg`), Windows `%APPDATA%\mc2\mc2.cfg`.
+   `mc2.cfg.example` in the package shows the format; a relative path is relative to the config file.
+
+Your saved options (`options.cfg`, for example the Hardware Rasterizer setting) are kept in the same user config folder,
+`%APPDATA%\mc2` on Windows, `~/Library/Application Support/mc2` on macOS and `~/.config/mc2` on Linux. Earlier versions
+kept them in `MechCommander2` next to it (`%APPDATA%\MechCommander2`, `~/Library/Application Support/MechCommander2`,
+`~/.config/mechcommander2`); one still there is read until you save the options once.
+
+If nothing is found, `mc2` prints these instructions and exits without opening a window.
+The game's text is read from your copy too: the data folder must hold `mc2res.dll`, the string resource library of your
+retail installation; without it `mc2` stops with "game data incomplete" before showing any screen.
+Reading a retail `mc2res.dll` is fixture-tested only (the tests use a synthetic library, not a retail file).
+On macOS, double-clicking the app with no data configured shows a dialog with the same instructions. You can also start the bundled
+binary from Terminal: `"Second & "Product".app/Contents/MacOS/mc2" --data "/path/to/data"`.
+
+**Upscaled textures (on by default).** The package contains no game art, so the first time you start the game it
+builds a 2x-upscaled texture pack from *your* data into your cache folder (macOS `~/Library/Caches/mc2/hires`, Linux
+`~/.cache/mc2/hires`, Windows `%LOCALAPPDATA%\mc2\hires`), printing progress to the terminal. The build takes at most
+90 seconds per start (`MC2_HIRES_BUDGET_SECS=N` changes that, `0` means no limit); if it is not finished the game
+starts anyway, the textures not yet done keep their original look, and the next start carries on where it stopped. The
+pack is rebuilt automatically if it is damaged or your game data changes.
+
+- `--hires-dir off` (or `hires = off` in `mc2.cfg`, or `MC2_HIRES_DIR=off`) keeps the original art.
+- `--hires-dir DIR` (or `hires = DIR`, `MC2_HIRES_DIR`) uses a pack folder you built yourself on this machine from your own
+  game data, instead of the automatic build. There is no downloadable texture pack.
+- `--selftest-play` and `--headless` never build the pack; they use it only if a finished one already exists.
+  `--selftest-play` prints `selftest hires: off` or `selftest hires: <folder> (upscaled pack)`.
+
+Useful flags: `--mission mc2_01` (straight into a mission), `--fullscreen`, `--size 1920x1080`, `--version`, `--help`.
+`--selftest-play --data "/path/to/data"` runs `mc2_01` for 9,000 fixed simulation frames without opening a window or needing a GPU. It
+prints the resolved data and hires paths, then runs the mc2_01 objective check (`objective check: pass` or `fail <why>`). It exits nonzero
+if the data cannot be loaded, a frame fails, or the objective check fails.
+To quit, close the window; Esc and P pause the game.
+
+## Controls (same as the original)
+
+**Mouse:** left-click a unit to select it, or drag a box to select several. Right-click the ground to move; right-click an enemy to attack.
+
+| Unit key | Action |
+|---|---|
+| E | select all visible units of yours |
+| D | default attack |
+| S / M / L | attack at short / medium / long range |
+| A | energy weapons only |
+| W | conserve ammo |
+| F (hold) | force fire |
+| J (hold) | jump |
+| G (hold) | guard |
+| Space (hold) | run |
+| Ctrl+1–9 / 1–9 | save / recall a squad group |
+| Backspace | remove last queued command |
+| Page Up / Page Down | power up / power down |
+| End | eject |
+
+| Camera key | Action |
+|---|---|
+| Arrow keys | scroll |
+| Shift+arrows | rotate / tilt |
+| + / − | zoom |
+| Home | centre camera |
+| F2–F5 / Ctrl+F2–F5 | recall / save camera views |
+
+| Other key | Action |
+|---|---|
+| F9 | objectives |
+| F1 | hotkey help |
+| Tab | switch control-panel tab |
+| I | info |
+| N | next nav marker |
+| V | vehicle command (mine laying or guard-tower suppression) |
+| \ | compass |
+| numpad * / ÷ | airstrike / sensor strike, where the mission allows it |
+
+## Known gaps
+
+- Some enemy pilot AI script functions are not ported yet, so enemies may react less than in the original.
+- Ground vehicle fire and some vehicle behaviors remain incomplete, particularly for enemy vehicles.
+- Air and sensor strikes are partial.
+- Unported parts are shown as unavailable, never faked. Package verification covers mission mc2_01; report anything that breaks.
+
+## Licenses
+
+`LICENSE-MS-SSLPL.txt` covers the ported game code (Microsoft Shared Source Limited Permissive License).
+`THIRD-PARTY-NOTICES.txt` lists the open-source Rust crates linked into the program with their license texts.
+`VERSION` names the exact commit the package was built from; `mc2 --version` prints the version.

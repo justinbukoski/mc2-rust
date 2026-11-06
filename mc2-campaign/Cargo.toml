@@ -1,0 +1,16 @@
+[package]
+name = "mc2-campaign"
+version = "0.1.0"
+edition = "2021"
+description = "Campaign and logistics state: inventory, variants, pilots, purchase lists, mission progression, saves (a port of MechCommander 2)"
+license-file = "../LICENSE-MS-SSLPL.txt"
+publish = false
+
+[lib]
+name = "mc2_campaign"
+
+[dependencies]
+mc2-formats = { path = "../mc2-formats" }
+mc2-sim-data = { path = "../mc2-sim-data" }
+serde = { version = "=1.0.229", features = ["derive"] }
+ron = "=0.12.2"

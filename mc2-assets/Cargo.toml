@@ -1,0 +1,11 @@
+[package]
+name = "mc2-assets"
+version = "0.1.0"
+edition = "2021"
+license-file = "../LICENSE-MS-SSLPL.txt"
+publish = false
+
+[dependencies]
+mc2-libm = { path = "../mc2-libm" }
+flate2 = "=1.1.10"
+png = "=0.18.1"

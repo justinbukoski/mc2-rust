@@ -1,0 +1,13 @@
+[package]
+name = "mc2-sim-data"
+version = "0.1.0"
+edition = "2021"
+description = "Static game data: object types, chassis, components, pilots, missions, campaign (a port of MechCommander 2)"
+license-file = "../LICENSE-MS-SSLPL.txt"
+publish = false
+
+[lib]
+name = "mc2_sim_data"
+
+[dependencies]
+mc2-formats = { path = "../mc2-formats" }

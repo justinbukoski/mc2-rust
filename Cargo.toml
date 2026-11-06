@@ -1,0 +1,7 @@
+[workspace]
+resolver = "2"
+members = ["mc2-*", "tools/pack-tools"]
+
+[profile.release]
+opt-level = 3
+debug = 1

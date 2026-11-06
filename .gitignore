@@ -1,0 +1,15 @@
+target/
+
+# game-derived or generated pictures and data must never be committed (see docs/PUBLISHING.md)
+*.png
+*.fst
+*.abl
+*.fit
+*.tga
+*.bmp
+*.wav
+*.mp2
+out/
+
+# synthetic fixtures for the oracle-tools parity tests (not game data)
+!mc2-abl/oracle/testdata/**/*.abl

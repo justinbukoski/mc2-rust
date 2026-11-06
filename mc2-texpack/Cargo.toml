@@ -1,0 +1,28 @@
+[package]
+name = "mc2-texpack"
+version = "0.1.0"
+edition = "2021"
+description = "Texture pack tool: dump every texture the game can show, write the inventory and manifest, verify upscaled packs (a port of MechCommander 2)"
+license-file = "../LICENSE-MS-SSLPL.txt"
+publish = false
+
+[lib]
+name = "mc2_texpack"
+
+[[bin]]
+name = "mc2-texpack"
+path = "src/main.rs"
+
+[dependencies]
+mc2-gfx = { path = "../mc2-gfx" }
+mc2-formats = { path = "../mc2-formats" }
+mc2-assets = { path = "../mc2-assets" }
+mc2-render = { path = "../mc2-render" }
+mc2-fx = { path = "../mc2-fx" }
+serde = { version = "=1.0.229", features = ["derive"] }
+serde_json = "=1.0.154"
+png = "=0.18.1"
+chrono = { version = "0.4", default-features = false, features = ["clock"] }
+
+[dev-dependencies]
+mc2-ui = { path = "../mc2-ui" }

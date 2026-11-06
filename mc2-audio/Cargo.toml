@@ -1,0 +1,17 @@
+[package]
+name = "mc2-audio"
+version = "0.1.0"
+edition = "2021"
+description = "Game audio: sound table, Betty, pilot radio, music, 3D attenuation (a port of MechCommander 2)"
+license-file = "../LICENSE-MS-SSLPL.txt"
+publish = false
+
+[lib]
+name = "mc2_audio"
+
+[dependencies]
+mc2-formats = { path = "../mc2-formats" }
+mc2-platform = { path = "../mc2-platform", default-features = false }
+
+[dev-dependencies]
+serde_json = "=1.0.154"

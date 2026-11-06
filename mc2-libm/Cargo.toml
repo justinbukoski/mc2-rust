@@ -1,0 +1,18 @@
+[package]
+name = "mc2-libm"
+version = "0.1.0"
+edition = "2021"
+description = "Portable, bit-reproducible transcendental functions for the simulation (a port of musl libm)"
+license-file = "../LICENSE-MS-SSLPL.txt"
+publish = false
+
+[lib]
+name = "mc2_libm"
+
+[dependencies]
+# Exact pin: the vendored musl 1.1.21 sources under mc2-sim/oracle/third_party/musl-libm are the C twin of this version
+# (see that directory's README and tests/musl_twin.rs). `default-features = false` keeps the pure-Rust generic code paths
+# (no architecture intrinsics), so every target runs the same instruction-for-instruction algorithm.
+libm = { version = "=0.2.16", default-features = false }
+
+[dev-dependencies]

@@ -1,0 +1,28 @@
+[package]
+name = "mc2-sim"
+version = "0.1.0"
+edition = "2021"
+description = "Simulation: objects, movers, weapons, AI, mission loop (a port of MechCommander 2)"
+license-file = "../LICENSE-MS-SSLPL.txt"
+publish = false
+
+[lib]
+name = "mc2_sim"
+
+[dependencies]
+mc2-libm = { path = "../mc2-libm" }
+mc2-formats = { path = "../mc2-formats" }
+mc2-assets = { path = "../mc2-assets" }
+mc2-path = { path = "../mc2-path" }
+mc2-abl = { path = "../mc2-abl" }
+mc2-sim-data = { path = "../mc2-sim-data" }
+
+[features]
+# Test-only world-state hooks for the objective harness (src/test_hooks.rs). Enabled by mc2-app for the packaged `--selftest-play` objective check; gameplay code never calls it.
+test-hooks = []
+
+[dev-dependencies]
+mc2-audio = { path = "../mc2-audio" }
+flate2 = "=1.1.10"
+# Enables the test hooks for this crate's own integration tests (a dev-dependency feature does not reach normal builds).
+mc2-sim = { path = ".", features = ["test-hooks"] }

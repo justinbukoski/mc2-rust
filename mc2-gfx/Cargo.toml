@@ -1,0 +1,14 @@
+[package]
+name = "mc2-gfx"
+version = "0.1.0"
+edition = "2021"
+description = "Graphics configuration and texture-replacement helpers"
+license-file = "../LICENSE-MS-SSLPL.txt"
+publish = false
+
+[lib]
+name = "mc2_gfx"
+
+[dependencies]
+png = "=0.18.1"
+log = "0.4"

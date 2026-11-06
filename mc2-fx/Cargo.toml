@@ -1,0 +1,18 @@
+[package]
+name = "mc2-fx"
+version = "0.1.0"
+edition = "2021"
+description = "Visual effects: library loader, F-curves, effect simulation and draw data (a port of MechCommander 2)"
+license-file = "../LICENSE-MS-SSLPL.txt"
+publish = false
+
+[lib]
+name = "mc2_fx"
+
+[dependencies]
+mc2-formats = { path = "../mc2-formats" }
+mc2-assets = { path = "../mc2-assets" }
+mc2-render = { path = "../mc2-render" }
+
+[dev-dependencies]
+mc2-gfx = { path = "../mc2-gfx" }

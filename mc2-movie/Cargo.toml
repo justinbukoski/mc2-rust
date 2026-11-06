@@ -1,0 +1,15 @@
+[package]
+name = "mc2-movie"
+version = "0.1.0"
+edition = "2021"
+description = "Pure-Rust MPEG-1 program stream demuxer, video decoder and Layer II audio decoder"
+license-file = "../LICENSE-MS-SSLPL.txt"
+publish = false
+
+[lib]
+name = "mc2_movie"
+
+[dependencies]
+
+[dev-dependencies]
+png = "=0.18.1"

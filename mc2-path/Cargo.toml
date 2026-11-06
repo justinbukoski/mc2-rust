@@ -1,0 +1,16 @@
+[package]
+name = "mc2-path"
+version = "0.1.0"
+edition = "2021"
+description = "Movement and pathfinding (a port of MechCommander 2)"
+license-file = "../LICENSE-MS-SSLPL.txt"
+publish = false
+
+[lib]
+name = "mc2_path"
+
+[dependencies]
+
+[dev-dependencies]
+# Test-only: zlib inflate for reading packed .fst / .pak entries.
+flate2 = "=1.1.10"

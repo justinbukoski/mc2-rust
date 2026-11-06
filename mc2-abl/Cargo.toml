@@ -1,0 +1,16 @@
+[package]
+name = "mc2-abl"
+version = "0.1.0"
+edition = "2021"
+description = "ABL scripting language for mission scripts and AI brains (a port of MechCommander 2)"
+license-file = "../LICENSE-MS-SSLPL.txt"
+publish = false
+
+[lib]
+name = "mc2_abl"
+
+[dependencies]
+mc2-libm = { path = "../mc2-libm" }
+
+[dev-dependencies]
+flate2 = "1"
