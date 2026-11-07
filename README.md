@@ -3,6 +3,8 @@
 A port of the 2001 game MechCommander 2, written in Rust, for macOS, Linux and Windows. You need your own copy
 of the original game's data to play; game data is not included. No compiling needed: download a ready-to-run build below.
 
+**Start here: [justinbukoski.github.io/mc2-rust](https://justinbukoski.github.io/mc2-rust/)**. It has the download button, three-step setup and known differences.
+
 | System | Download |
 | --- | --- |
 | macOS (Apple Silicon) | [mc2-rust-0.1.0-5dcc8c14c146-macos-arm64.zip](https://github.com/justinbukoski/mc2-rust/releases/download/v0.1.0/mc2-rust-0.1.0-5dcc8c14c146-macos-arm64.zip) |
