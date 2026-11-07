@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc 3.12.1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>P3 acceptance: mc2_01 player win</title>
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    html {
+      color: #1a1a1a;
+      color: light-dark(#1a1a1a, #fdfdfd);
+      background-color: #fdfdfd;
+      background-color: light-dark(#fdfdfd, #1a1a1a);
+      color-scheme: light dark;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        color-scheme: light only;
+      }
+      html, body, pre, code {
+        background-color: transparent;
+      }
+      body, a, a:visited, blockquote {
+        color: black;
+      }
+      pre, code {
+        padding: 0;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a, a:visited {
+      color: inherit;
+    }
+    img {
+      max-width: 100%;
+    }
+    svg {
+      height: auto;
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid;
+      border-color: #e6e6e6;
+      border-color: light-dark(#e6e6e6, #4c4c4c);
+      color: #606060;
+      color: light-dark(#606060, #b6b6b6);
+    }
+    code {
+      white-space: pre-wrap;
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      border: none;
+      border-top: 1px solid currentColor;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid currentColor;
+      border-bottom: 1px solid currentColor;
+    }
+    th {
+      border-top: 1px solid currentColor;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: 1.5em;}
+    div.column{flex: auto;}
+    @media screen {
+    div.columns{gap: min(4vw, 1.5em);}
+    div.column{overflow-x: auto;}
+    }
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { color: #008000; } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { color: #008000; font-weight: bold; } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  </style>
+  <style>
+  :root{--bg:#fdfdfc;--fg:#1d1d1f;--muted:#5a5a60;--line:#e2e2e6;--code:#f2f2f5;--link:#0b5cad}
+  @media (prefers-color-scheme:dark){:root{--bg:#141416;--fg:#e8e8ea;--muted:#a0a0a8;--line:#2c2c31;--code:#1e1e22;--link:#6fb1ff}}
+  html{background:var(--bg)}
+  body{max-width:46rem;margin:0 auto;padding:2rem 1rem 4rem;font:16px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;color:var(--fg);background:var(--bg)}
+  h1,h2,h3{line-height:1.25;margin-top:2rem}h1{margin-top:0}
+  a{color:var(--link)}
+  code{background:var(--code);padding:.1em .3em;border-radius:4px;font-size:.92em}
+  pre{background:var(--code);padding:.8rem 1rem;border-radius:6px;overflow-x:auto}pre code{padding:0;background:none}
+  table{border-collapse:collapse;width:100%;display:block;overflow-x:auto}th,td{border:1px solid var(--line);padding:.4rem .6rem;text-align:left}
+  nav.top{font-size:.9rem;color:var(--muted);margin-bottom:1.5rem}
+  </style>
+</head>
+<body>
+<h1 id="p3-acceptance-mc2_01-player-win">P3 acceptance: mc2_01 player
+win</h1>
+<p>This is the P3 acceptance replay, not a simulation fixture. A player
+driver (<a
+href="../src/p3_driver.rs"><code>../src/p3_driver.rs</code></a>) watches
+only what a player can see on the HUD (objectives panel, unit bar,
+tactical-map blips, selection boxes) and keeps producing normal keyboard
+and mouse input through <code>mc2-app</code>'s headless production front
+end until the objectives panel shows the job done. It never invokes a
+simulation order API and never reads hidden simulation state. The
+checked-in <a
+href="../tests/scripts/p3_mc2_01_win.input"><code>../tests/scripts/p3_mc2_01_win.input</code></a>
+is the older fixed one-pass schedule, kept as the
+<code>parse_player_script</code> contract fixture and as the plan
+described below; it is not what the acceptance run plays. With
+<code>feat/rust-sim-movement</code> merged the driver wins
+<code>mc2_01</code> (frame 13,191) and the replay test is no longer
+ignored.</p>
+<h2 id="source-facts">Source facts</h2>
+<p><code>mc2_01.fit</code> lives at
+<code>data/missions/mc2_01.fit</code> in the shipped
+<code>mission.fst</code>; the line references below are from its
+decompressed FIT text.</p>
+<table>
+<thead>
+<tr>
+<th>Fact</th>
+<th>Evidence</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>The player starts with three PlayerPart mechs: Werewolf at
+<code>(2496,-1941)</code>, and Bushwackers at <code>(2368,-1941)</code>
+and <code>(2539,-2069)</code>.</td>
+<td><code>data/missions/mc2_01.fit:94-119</code>, <code>:127-152</code>,
+<code>:160-185</code></td>
+</tr>
+<tr>
+<td>Primary 1 is investigate the airfield by moving any unit to
+<code>(3136,-789)</code>, radius 256.</td>
+<td><code>data/missions/mc2_01.fit:1654-1691</code></td>
+</tr>
+<tr>
+<td>Primary 2 is destroy the hangar at <code>(3221,-277)</code>; it
+activates after primary 1's flag.</td>
+<td><code>data/missions/mc2_01.fit:1699-1744</code></td>
+</tr>
+<tr>
+<td>Primary 3 is eight specific enemy movers around
+<code>(2837..3563,1984..2197)</code>.</td>
+<td><code>data/missions/mc2_01.fit:1746-1864</code></td>
+</tr>
+<tr>
+<td>Primary 4 is move any unit to north island <code>(832,2752)</code>,
+radius 256.</td>
+<td><code>data/missions/mc2_01.fit:1866-1909</code></td>
+</tr>
+<tr>
+<td>Primary 5 is four specific enemy movers around
+<code>(-1216..-1003,3051..3093)</code>.</td>
+<td><code>data/missions/mc2_01.fit:1911-1991</code></td>
+</tr>
+<tr>
+<td>Primary 6 requires all surviving mechs at extraction
+<code>(-4117,513)</code>, radius 256, and requires all previous
+primaries.</td>
+<td><code>data/missions/mc2_01.fit:1993-2030</code></td>
+</tr>
+<tr>
+<td>The shipped ABL's main return value is <code>ScenarioResult</code>;
+win/loss music reacts to the engine's <code>getMissionWon</code> /
+<code>getMissionLost</code>, rather than a scripted cheat result.</td>
+<td><code>data/missions/mc2_01.abl:283-303</code>,
+<code>:751</code></td>
+</tr>
+<tr>
+<td>The C++ mission turns a successful primary-objective status into
+<code>mis_PLAYER_WIN_BIG</code>; it turns a failed status or an
+all-disabled/destroyed player force into loss.</td>
+<td><code>code/mission.cpp:543-563</code>, <code>:627-661</code></td>
+</tr>
+<tr>
+<td>The ABL begins with its tutorial/camera sequence before it waits for
+objective 0, so the replay must be treated as a mission-input replay
+rather than a direct objective fixture.</td>
+<td><code>data/missions/mc2_01.abl:489-593</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="player-plan">Player plan</h2>
+<p>The HUD defaults to the Left/Right (AOE) mouse profile
+(<code>useLeftRightMouseProfile = true</code>). In that profile
+<code>MissionInterfaceManager</code> makes <code>commandClicked</code>
+from <code>rightMouseReleased</code>, while left release is selection
+(<code>code/missiongui.cpp:760-761</code>, <code>:847-853</code>);
+<code>updateAOEStyle</code> sends a command on right release
+(<code>:1482-1486</code>, <code>:1514-1585</code>). Thus a tactical-map
+right click sends <code>doMove</code>, an enemy under a right-click
+release reaches <code>doAttack</code>, and a left tactical-map click
+recentres the camera (<code>code/gametacmap.cpp:83-110</code>). The map
+rectangle at 800x600 is <code>(4,435)..(165,596)</code>
+(<code>rust/mc2-ui/examples/render_tacmap.rs:4-9</code>,
+<code>:34-45</code>).</p>
+<ol type="1">
+<li>Wait 90 seconds for the ABL intro sequence. Left-click
+<code>(116,540)</code> to centre the tactical-map camera on the three
+tightly grouped player mechs, then press <code>E</code> to Select
+Visible; this selects the visible home-commander lance
+(<code>code/missiongui.cpp:2077-2100</code>).</li>
+<li>Right-click <code>(124,525)</code> in the tactical map, the map-cell
+equivalent of airfield <code>(3136,-789)</code>.</li>
+<li>Left-click <code>(124,519)</code> to centre the hangar, press
+<code>D</code>, then right-click-release world-screen centre.
+<code>D</code> selects optimal Default Attack range
+(<code>code/missiongui.cpp:1941-1946</code>); the right release over an
+enemy reaches <code>doAttack</code> (<code>:1514-1585</code>), which
+sends an attack-to-destroy order to every selected home-commander mover
+(<code>:1801-1901</code>).</li>
+<li>Repeat camera-centre / <code>D</code> / world-centre
+right-click-release on the eight patrol points <code>(125,490)</code>,
+<code>(127,490)</code>, <code>(120,488)</code> twice,
+<code>(121,488)</code>, <code>(126,490)</code>, <code>(129,490)</code>,
+and <code>(121,487)</code>. The duplicated cell is deliberate: the FIT
+has two distinct targets in that tactical-map cell.</li>
+<li>Right-click north island <code>(95,481)</code>, then attack the four
+northern bandits at <code>(71,476)</code> twice, <code>(69,476)</code>,
+and <code>(68,476)</code> in the same sequence. The second duplicate
+likewise advances to the next target in that exact map cell after the
+first is destroyed.</li>
+<li>Right-click extraction <code>(32,508)</code> only after the attack
+phases. This orders the still-selected full lance into the exact
+all-surviving-mechs objective area.</li>
+</ol>
+<p>The screen-centre clicks are intentional real player clicks: each
+preceding tactical-map left click uses the game UI to place the camera
+on that target. They are not object IDs or injected commands.</p>
+<h2 id="harness-state-and-budget">Harness state and budget</h2>
+<p><code>tests/p3_acceptance.rs</code> always runs the script
+parser/mapping test. It checks that <code>E</code> and <code>D</code>
+resolve through the production app's <code>hotkeys::COMMANDS</code>,
+that every map coordinate converts through the merged
+<code>mc2_ui::TacMap</code> using mc2_01's real 100-vertex bounds and
+<code>buttonlayout800.fit</code> rectangle, and that each centre-screen
+attack is a complete right-click-release following Select Visible, a map
+focus, and Default Attack. The always-on results-state regression test
+takes the real state machine through <code>StartMission</code> →
+<code>MissionReady</code> → <code>EndMission(mis_PLAYER_WIN_BIG)</code>
+and verifies that its production report spelling is lowercase
+<code>results</code> (<code>rust/mc2-app/src/state.rs:30-41</code>).
+This is the same value the eventual headless win assertion uses.</p>
+<p>The production headless session
+(<code>HeadlessRun::production</code>, the one behind
+<code>mc2 --headless</code>) now constructs the live
+<code>mc2_sim::Sim</code>, registers the effects and battle sound sinks,
+and a finished mission drives the C++ results flow (the HUD's in-mission
+results tell the sim <code>resultsDone</code>, then <code>UiHost</code>
+shows the salvage / pilot review screens after a win).
+<code>tests/p3_integration.rs</code> pins that path with forced wins and
+losses.</p>
+<p>The end-to-end replay test runs by default (movement, attack
+decisions, firing and visual LOS have merged). It launches
+<code>mc2_01</code> at 800x600 for at most 18,000 simulation frames (600
+seconds at 30 Hz), then must assert <code>mis_PLAYER_WIN_BIG</code>,
+<code>GameState::Results</code>, a drawn Results screen, and the frame
+budget.</p>
+<p>Run the no-window progress probe after merges:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> rust</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ex">cargo</span> run <span class="at">-p</span> mc2-app <span class="at">--bin</span> p3_acceptance</span></code></pre></div>
+<p>It prints the parsed action count, every executed player step, and
+the first unavailable production seam or replay failure. When the
+production seams are wired, it is the orchestrator's step-by-step
+execution report.</p>
+<h2 id="outcome-driven-player-2026-10-20-featrust-p3-win">Outcome-driven
+player (2026-10-20, <code>feat/rust-p3-win</code>)</h2>
+<p>The fixed one-pass <code>p3_mc2_01_win.input</code> cannot say
+"repeat until destroyed", so the replay is now played by
+<code>mc2_app::p3_driver::PlayerDriver</code> (test-only seam;
+<code>p3_acceptance::replay</code>). It reads only what a player sees
+(the objectives panel, tactical-map blips, the unit bar, the on-screen
+selection boxes) and emits only physical input (tac-map click to centre
+the camera, E, D, right-click on the map or on an enemy on screen).
+<code>parse_player_script</code> still validates the one-pass script.
+Set <code>MC2_P3_TRACE=1</code> for per-frame traces: emitted
+<code>PlayerCommand</code>s with the selection and the ground point
+under the pointer (<code>game.rs</code>), and the driver's own
+decisions.</p>
+<p>Findings with the production headless path (GPU adapter available; ~6
+min per 18,000-frame run):</p>
+<ul>
+<li>The one-pass script's "attacks" produced <code>MoveToPoint</code>,
+not <code>AttackObject</code>: at the fixed screen centre no enemy is on
+the pick list. The driver instead clicks the target it sees on
+screen.</li>
+<li>With the driver and the merged movement port the lance reaches the
+retreating patrol; objectives 1-6 turn Successful at frames 3393, 3609,
+6355, 6867, 8967 and 12757 and the mission is won at frame 13,191
+(budget 18,000).</li>
+<li>Watch 13 (one of the four "Locate and Destroy Bandits" movers) ends
+<em>disabled</em>, not destroyed; the objective counts it as done. The
+report says so on its own line.</li>
+</ul>
+<p>Recorded <code>p3_acceptance</code> binary output (headless, release,
+<code>MC2_P3_TRACE=1</code>, exit 0):</p>
+<pre class="text"><code>P3 frame 2700: primary objectives [Undetermined, Undetermined, Undetermined, Undetermined, Undetermined, Undetermined]
+P3 frame 3393: primary objectives [Successful, Undetermined, Undetermined, Undetermined, Undetermined, Undetermined]
+P3 frame 3604: target watch 30 destroyed
+P3 frame 3609: primary objectives [Successful, Successful, Undetermined, Undetermined, Undetermined, Undetermined]
+P3 frame 4332: target watch 12 destroyed
+P3 frame 4553: target watch 28 destroyed
+P3 frame 4778: target watch 27 destroyed
+P3 frame 4891: target watch 29 destroyed
+P3 frame 5402: target watch 10 destroyed
+P3 frame 5711: target watch 11 destroyed
+P3 frame 6000: target watch 5 destroyed
+P3 frame 6294: target watch 4 destroyed
+P3 frame 6355: primary objectives [Successful, Successful, Successful, Undetermined, Undetermined, Undetermined]
+P3 frame 6867: primary objectives [Successful, Successful, Successful, Successful, Undetermined, Undetermined]
+P3 frame 8496: target watch 6 destroyed
+P3 frame 8946: target watch 7 destroyed
+P3 frame 8966: target watch 8 destroyed
+P3 frame 8967: primary objectives [Successful, Successful, Successful, Successful, Successful, Undetermined]
+P3 frame 12757: primary objectives [Successful, Successful, Successful, Successful, Successful, Successful]
+P3 target watch 13 never reported destroyed: present at frame 13191, destroyed false, disabled true
+P3 final: 12 of 13 targets destroyed (not destroyed: [13]), mission won at sim frame 13191
+P3 acceptance complete: mission result = win, Results screen reached, 13191 simulation frames</code></pre>
+</body>
+</html>

@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc 3.12.1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>MC2 Rust</title>
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    html {
+      color: #1a1a1a;
+      color: light-dark(#1a1a1a, #fdfdfd);
+      background-color: #fdfdfd;
+      background-color: light-dark(#fdfdfd, #1a1a1a);
+      color-scheme: light dark;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        color-scheme: light only;
+      }
+      html, body, pre, code {
+        background-color: transparent;
+      }
+      body, a, a:visited, blockquote {
+        color: black;
+      }
+      pre, code {
+        padding: 0;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a, a:visited {
+      color: inherit;
+    }
+    img {
+      max-width: 100%;
+    }
+    svg {
+      height: auto;
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid;
+      border-color: #e6e6e6;
+      border-color: light-dark(#e6e6e6, #4c4c4c);
+      color: #606060;
+      color: light-dark(#606060, #b6b6b6);
+    }
+    code {
+      white-space: pre-wrap;
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      border: none;
+      border-top: 1px solid currentColor;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid currentColor;
+      border-bottom: 1px solid currentColor;
+    }
+    th {
+      border-top: 1px solid currentColor;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: 1.5em;}
+    div.column{flex: auto;}
+    @media screen {
+    div.columns{gap: min(4vw, 1.5em);}
+    div.column{overflow-x: auto;}
+    }
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+  </style>
+  <style>
+  :root{--bg:#fdfdfc;--fg:#1d1d1f;--muted:#5a5a60;--line:#e2e2e6;--code:#f2f2f5;--link:#0b5cad}
+  @media (prefers-color-scheme:dark){:root{--bg:#141416;--fg:#e8e8ea;--muted:#a0a0a8;--line:#2c2c31;--code:#1e1e22;--link:#6fb1ff}}
+  html{background:var(--bg)}
+  body{max-width:46rem;margin:0 auto;padding:2rem 1rem 4rem;font:16px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;color:var(--fg);background:var(--bg)}
+  h1,h2,h3{line-height:1.25;margin-top:2rem}h1{margin-top:0}
+  a{color:var(--link)}
+  code{background:var(--code);padding:.1em .3em;border-radius:4px;font-size:.92em}
+  pre{background:var(--code);padding:.8rem 1rem;border-radius:6px;overflow-x:auto}pre code{padding:0;background:none}
+  table{border-collapse:collapse;width:100%;display:block;overflow-x:auto}th,td{border:1px solid var(--line);padding:.4rem .6rem;text-align:left}
+  nav.top{font-size:.9rem;color:var(--muted);margin-bottom:1.5rem}
+  </style>
+</head>
+<body>
+<h1 id="mc2-rust">MC2 Rust</h1>
+<p>A port of the 2001 game MechCommander 2, written in Rust, for macOS,
+Linux (including Steam Deck) and Windows. You need your own copy of the
+original game's data to play; game data is not included.</p>
+<h2 id="download-and-play">Download and play</h2>
+<p>You do not need to compile anything. Ready-to-run builds are on the
+<a
+href="https://github.com/justinbukoski/mc2-rust/releases/tag/v0.1.0">release
+page</a>:</p>
+<table>
+<thead>
+<tr>
+<th>System</th>
+<th>Download</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>macOS (Apple Silicon)</td>
+<td><a
+href="https://github.com/justinbukoski/mc2-rust/releases/download/v0.1.0/mc2-rust-0.1.0-5dcc8c14c146-macos-arm64.zip">mc2-rust-0.1.0-5dcc8c14c146-macos-arm64.zip</a></td>
+</tr>
+<tr>
+<td>Linux x86_64 / Steam Deck</td>
+<td><a
+href="https://github.com/justinbukoski/mc2-rust/releases/download/v0.1.0/mc2-rust-0.1.0-5dcc8c14c146-linux-x86_64.tar.gz">mc2-rust-0.1.0-5dcc8c14c146-linux-x86_64.tar.gz</a></td>
+</tr>
+<tr>
+<td>Windows x86_64</td>
+<td><a
+href="https://github.com/justinbukoski/mc2-rust/releases/download/v0.1.0/mc2-rust-0.1.0-5dcc8c14c146-windows-x86_64.zip">mc2-rust-0.1.0-5dcc8c14c146-windows-x86_64.zip</a></td>
+</tr>
+</tbody>
+</table>
+<p>Checksums: <a
+href="https://github.com/justinbukoski/mc2-rust/releases/download/v0.1.0/SHA256SUMS">SHA256SUMS</a>.</p>
+<p>Quick start:</p>
+<ol type="1">
+<li>Download and unpack the build for your system.
+<ul>
+<li>macOS: move <code>MC2 Rust.app</code> anywhere. It is not notarised,
+so the first time right-click it and choose Open.</li>
+<li>Linux: <code>tar xzf mc2-rust-0.1.0-*-linux-x86_64.tar.gz</code>,
+then run <code>./mc2-rust.sh</code> in the unpacked folder.</li>
+<li>Windows: unzip and run <code>mc2.exe</code>.</li>
+</ul></li>
+<li>Point the game at your original game data folder (the one containing
+<code>system.cfg</code> and the <code>.fst</code> files). The simplest
+way is a file named <code>mc2.cfg</code> next to the program containing
+one line: <code>data = /path/to/your/game/data</code>. That folder must
+also contain the game's string library (<code>mc2res.dll</code> from a
+retail install).</li>
+<li>Start the game.</li>
+</ol>
+<p>Full instructions, including the other ways to set the data folder,
+how to check an install, and command-line options: <a
+href="docs/release/INSTALL.html">INSTALL.md</a>. Release notes: <a
+href="docs/release/RELEASE-NOTES-0.1.0.html">RELEASE-NOTES-0.1.0.md</a>.
+Known differences from the original: <a
+href="docs/release/KNOWN-DIFFERENCES.html">KNOWN-DIFFERENCES.md</a>.
+Controls: <a href="packaging/README-PLAYERS.html">the player
+guide</a>.</p>
+<p>The Windows build has been tested under Proton only; the retail
+<code>mc2res.dll</code> path has been tested against a synthetic fixture
+only. Reports welcome in Issues.</p>
+<h2 id="building-from-source">Building from source</h2>
+<p>Optional. With rustup installed (it fetches the pinned Rust 1.98.0
+from <code>rust-toolchain.toml</code>):
+<code>cargo build --release -p mc2-app</code>, then run
+<code>target/release/mc2 --data "/path/to/data"</code>.</p>
+<h2 id="licence">Licence</h2>
+<p>The source and the binaries are under the Microsoft Shared Source
+Limited Permissive License (Ms-SSLPL); see <a
+href="LICENSE-MS-SSLPL.txt">LICENSE-MS-SSLPL.txt</a>, <a
+href="NOTICE">NOTICE</a> and the third-party crate licences in the
+packages (<code>THIRD-PARTY-NOTICES.txt</code>).</p>
+<h2 id="credits">Credits</h2>
+<ul>
+<li>Microsoft Corporation released the MechCommander 2 source under the
+Ms-SSLPL; this port is derived from that release.</li>
+<li>alariq's port of the same source release was used as a behaviour
+reference only.</li>
+</ul>
+<p>Not affiliated with or endorsed by Microsoft, FASA, Catalyst Game
+Labs, Topps, or alariq. Requires your own copy of the original game
+data.</p>
+</body>
+</html>

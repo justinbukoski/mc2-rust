@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc 3.12.1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>MC2 Rust — player guide</title>
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    html {
+      color: #1a1a1a;
+      color: light-dark(#1a1a1a, #fdfdfd);
+      background-color: #fdfdfd;
+      background-color: light-dark(#fdfdfd, #1a1a1a);
+      color-scheme: light dark;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        color-scheme: light only;
+      }
+      html, body, pre, code {
+        background-color: transparent;
+      }
+      body, a, a:visited, blockquote {
+        color: black;
+      }
+      pre, code {
+        padding: 0;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a, a:visited {
+      color: inherit;
+    }
+    img {
+      max-width: 100%;
+    }
+    svg {
+      height: auto;
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid;
+      border-color: #e6e6e6;
+      border-color: light-dark(#e6e6e6, #4c4c4c);
+      color: #606060;
+      color: light-dark(#606060, #b6b6b6);
+    }
+    code {
+      white-space: pre-wrap;
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      border: none;
+      border-top: 1px solid currentColor;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid currentColor;
+      border-bottom: 1px solid currentColor;
+    }
+    th {
+      border-top: 1px solid currentColor;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: 1.5em;}
+    div.column{flex: auto;}
+    @media screen {
+    div.columns{gap: min(4vw, 1.5em);}
+    div.column{overflow-x: auto;}
+    }
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+  </style>
+  <style>
+  :root{--bg:#fdfdfc;--fg:#1d1d1f;--muted:#5a5a60;--line:#e2e2e6;--code:#f2f2f5;--link:#0b5cad}
+  @media (prefers-color-scheme:dark){:root{--bg:#141416;--fg:#e8e8ea;--muted:#a0a0a8;--line:#2c2c31;--code:#1e1e22;--link:#6fb1ff}}
+  html{background:var(--bg)}
+  body{max-width:46rem;margin:0 auto;padding:2rem 1rem 4rem;font:16px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;color:var(--fg);background:var(--bg)}
+  h1,h2,h3{line-height:1.25;margin-top:2rem}h1{margin-top:0}
+  a{color:var(--link)}
+  code{background:var(--code);padding:.1em .3em;border-radius:4px;font-size:.92em}
+  pre{background:var(--code);padding:.8rem 1rem;border-radius:6px;overflow-x:auto}pre code{padding:0;background:none}
+  table{border-collapse:collapse;width:100%;display:block;overflow-x:auto}th,td{border:1px solid var(--line);padding:.4rem .6rem;text-align:left}
+  nav.top{font-size:.9rem;color:var(--muted);margin-bottom:1.5rem}
+  </style>
+</head>
+<body>
+<h1 id="mc2-rust--player-guide">MC2 Rust — player guide</h1>
+<p>MC2 Rust is a pure-Rust remake of the original game engine. It plays
+like the original; it is not a bit-for-bit copy.</p>
+<p><strong>This package does not contain the game's data.</strong> You
+need your own copy of the original 2001 game (the original game's
+<code>data</code> folder, the one that contains <code>system.cfg</code>
+and the <code>.fst</code> archives). The data is copyrighted and is
+never distributed with the port.</p>
+<h2 id="install">Install</h2>
+<table>
+<thead>
+<tr>
+<th>Platform</th>
+<th>Package</th>
+<th>Steps</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>macOS (Apple silicon, macOS 12+)</td>
+<td><code>…-macos-arm64.zip</code></td>
+<td>Unzip, drag <code>MC2 Rust.app</code> anywhere. The app is ad-hoc
+signed, not notarised: the first time, right-click → Open (or
+<code>xattr -dr com.apple.quarantine "MC2 Rust.app"</code>).</td>
+</tr>
+<tr>
+<td>Linux x86_64</td>
+<td><code>…-linux-x86_64.tar.gz</code></td>
+<td><code>tar xzf</code> it, run <code>./mc2-rust.sh</code>. Needs a
+Vulkan driver (Mesa or the vendor driver) and ALSA
+(<code>libasound.so.2</code>); built on Fedora, so a glibc of the same
+age or newer.</td>
+</tr>
+<tr>
+<td>Windows x86_64</td>
+<td><code>…-windows-x86_64.zip</code></td>
+<td>Unzip, run <code>mc2.exe</code>. Needs a Vulkan- or DirectX
+12-capable GPU driver.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="point-it-at-your-game-data">Point it at your game data</h2>
+<p><code>mc2</code> looks for the data folder in this order and uses the
+first hit:</p>
+<ol type="1">
+<li>the command line: <code>mc2 --data "/path/to/data"</code></li>
+<li>the <code>MC2_DATA</code> environment variable</li>
+<li>a config file <code>mc2.cfg</code> with a line
+<code>data = /path/to/data</code>, found (in this order) next to the
+program (for the macOS app: next to <code>MC2 Rust.app</code>), then in
+the user config folder: macOS
+<code>~/Library/Application Support/mc2/mc2.cfg</code>, Linux
+<code>~/.config/mc2/mc2.cfg</code>
+(<code>$XDG_CONFIG_HOME/mc2/mc2.cfg</code>), Windows
+<code>%APPDATA%\mc2\mc2.cfg</code>. <code>mc2.cfg.example</code> in the
+package shows the format; a relative path is relative to the config
+file.</li>
+</ol>
+<p>Your saved options (<code>options.cfg</code>, for example the
+Hardware Rasterizer setting) are kept in the same user config folder,
+<code>%APPDATA%\mc2</code> on Windows,
+<code>~/Library/Application Support/mc2</code> on macOS and
+<code>~/.config/mc2</code> on Linux. Earlier versions kept them in
+<code>MechCommander2</code> next to it
+(<code>%APPDATA%\MechCommander2</code>,
+<code>~/Library/Application Support/MechCommander2</code>,
+<code>~/.config/mechcommander2</code>); one still there is read until
+you save the options once.</p>
+<p>If nothing is found, <code>mc2</code> prints these instructions and
+exits without opening a window. The game's text is read from your copy
+too: the data folder must hold <code>mc2res.dll</code>, the string
+resource library of your retail installation; without it
+<code>mc2</code> stops with "game data incomplete" before showing any
+screen. Reading a retail <code>mc2res.dll</code> is fixture-tested only
+(the tests use a synthetic library, not a retail file). On macOS,
+double-clicking the app with no data configured shows a dialog with the
+same instructions. You can also start the bundled binary from Terminal:
+<code>"MC2 Rust.app/Contents/MacOS/mc2" --data "/path/to/data"</code>.</p>
+<p><strong>Upscaled textures (on by default).</strong> The package
+contains no game art, so the first time you start the game it builds a
+2x-upscaled texture pack from <em>your</em> data into your cache folder
+(macOS <code>~/Library/Caches/mc2/hires</code>, Linux
+<code>~/.cache/mc2/hires</code>, Windows
+<code>%LOCALAPPDATA%\mc2\hires</code>), printing progress to the
+terminal. The build takes at most 90 seconds per start
+(<code>MC2_HIRES_BUDGET_SECS=N</code> changes that, <code>0</code> means
+no limit); if it is not finished the game starts anyway, the textures
+not yet done keep their original look, and the next start carries on
+where it stopped. The pack is rebuilt automatically if it is damaged or
+your game data changes.</p>
+<ul>
+<li><code>--hires-dir off</code> (or <code>hires = off</code> in
+<code>mc2.cfg</code>, or <code>MC2_HIRES_DIR=off</code>) keeps the
+original art.</li>
+<li><code>--hires-dir DIR</code> (or <code>hires = DIR</code>,
+<code>MC2_HIRES_DIR</code>) uses a pack folder you built yourself on
+this machine from your own game data, instead of the automatic build.
+There is no downloadable texture pack.</li>
+<li><code>--selftest-play</code> and <code>--headless</code> never build
+the pack; they use it only if a finished one already exists.
+<code>--selftest-play</code> prints <code>selftest hires: off</code> or
+<code>selftest hires: &lt;folder&gt; (upscaled pack)</code>.</li>
+</ul>
+<p>Useful flags: <code>--mission mc2_01</code> (straight into a
+mission), <code>--fullscreen</code>, <code>--size 1920x1080</code>,
+<code>--version</code>, <code>--help</code>.
+<code>--selftest-play --data "/path/to/data"</code> runs
+<code>mc2_01</code> for 9,000 fixed simulation frames without opening a
+window or needing a GPU. It prints the resolved data and hires paths,
+then runs the mc2_01 objective check (<code>objective check: pass</code>
+or <code>fail &lt;why&gt;</code>). It exits nonzero if the data cannot
+be loaded, a frame fails, or the objective check fails. To quit, close
+the window; Esc and P pause the game.</p>
+<h2 id="controls-same-as-the-original">Controls (same as the
+original)</h2>
+<p><strong>Mouse:</strong> left-click a unit to select it, or drag a box
+to select several. Right-click the ground to move; right-click an enemy
+to attack.</p>
+<table>
+<thead>
+<tr>
+<th>Unit key</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>E</td>
+<td>select all visible units of yours</td>
+</tr>
+<tr>
+<td>D</td>
+<td>default attack</td>
+</tr>
+<tr>
+<td>S / M / L</td>
+<td>attack at short / medium / long range</td>
+</tr>
+<tr>
+<td>A</td>
+<td>energy weapons only</td>
+</tr>
+<tr>
+<td>W</td>
+<td>conserve ammo</td>
+</tr>
+<tr>
+<td>F (hold)</td>
+<td>force fire</td>
+</tr>
+<tr>
+<td>J (hold)</td>
+<td>jump</td>
+</tr>
+<tr>
+<td>G (hold)</td>
+<td>guard</td>
+</tr>
+<tr>
+<td>Space (hold)</td>
+<td>run</td>
+</tr>
+<tr>
+<td>Ctrl+1–9 / 1–9</td>
+<td>save / recall a squad group</td>
+</tr>
+<tr>
+<td>Backspace</td>
+<td>remove last queued command</td>
+</tr>
+<tr>
+<td>Page Up / Page Down</td>
+<td>power up / power down</td>
+</tr>
+<tr>
+<td>End</td>
+<td>eject</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>Camera key</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Arrow keys</td>
+<td>scroll</td>
+</tr>
+<tr>
+<td>Shift+arrows</td>
+<td>rotate / tilt</td>
+</tr>
+<tr>
+<td>+ / −</td>
+<td>zoom</td>
+</tr>
+<tr>
+<td>Home</td>
+<td>centre camera</td>
+</tr>
+<tr>
+<td>F2–F5 / Ctrl+F2–F5</td>
+<td>recall / save camera views</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>Other key</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>F9</td>
+<td>objectives</td>
+</tr>
+<tr>
+<td>F1</td>
+<td>hotkey help</td>
+</tr>
+<tr>
+<td>Tab</td>
+<td>switch control-panel tab</td>
+</tr>
+<tr>
+<td>I</td>
+<td>info</td>
+</tr>
+<tr>
+<td>N</td>
+<td>next nav marker</td>
+</tr>
+<tr>
+<td>V</td>
+<td>vehicle command (mine laying or guard-tower suppression)</td>
+</tr>
+<tr>
+<td>\</td>
+<td>compass</td>
+</tr>
+<tr>
+<td>numpad * / ÷</td>
+<td>airstrike / sensor strike, where the mission allows it</td>
+</tr>
+</tbody>
+</table>
+<h2 id="known-gaps">Known gaps</h2>
+<ul>
+<li>Some enemy pilot AI script functions are not ported yet, so enemies
+may react less than in the original.</li>
+<li>Ground vehicle fire and some vehicle behaviors remain incomplete,
+particularly for enemy vehicles.</li>
+<li>Air and sensor strikes are partial.</li>
+<li>Unported parts are shown as unavailable, never faked. Package
+verification covers mission mc2_01; report anything that breaks.</li>
+</ul>
+<h2 id="licenses">Licenses</h2>
+<p><code>LICENSE-MS-SSLPL.txt</code> covers the ported game code
+(Microsoft Shared Source Limited Permissive License).
+<code>THIRD-PARTY-NOTICES.txt</code> lists the open-source Rust crates
+linked into the program with their license texts. <code>VERSION</code>
+names the exact commit the package was built from;
+<code>mc2 --version</code> prints the version.</p>
+</body>
+</html>

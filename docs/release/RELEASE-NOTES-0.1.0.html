@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc 3.12.1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>MC2 Rust 0.1.0: release notes</title>
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    html {
+      color: #1a1a1a;
+      color: light-dark(#1a1a1a, #fdfdfd);
+      background-color: #fdfdfd;
+      background-color: light-dark(#fdfdfd, #1a1a1a);
+      color-scheme: light dark;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        color-scheme: light only;
+      }
+      html, body, pre, code {
+        background-color: transparent;
+      }
+      body, a, a:visited, blockquote {
+        color: black;
+      }
+      pre, code {
+        padding: 0;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a, a:visited {
+      color: inherit;
+    }
+    img {
+      max-width: 100%;
+    }
+    svg {
+      height: auto;
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid;
+      border-color: #e6e6e6;
+      border-color: light-dark(#e6e6e6, #4c4c4c);
+      color: #606060;
+      color: light-dark(#606060, #b6b6b6);
+    }
+    code {
+      white-space: pre-wrap;
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      border: none;
+      border-top: 1px solid currentColor;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid currentColor;
+      border-bottom: 1px solid currentColor;
+    }
+    th {
+      border-top: 1px solid currentColor;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: 1.5em;}
+    div.column{flex: auto;}
+    @media screen {
+    div.columns{gap: min(4vw, 1.5em);}
+    div.column{overflow-x: auto;}
+    }
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+  </style>
+  <style>
+  :root{--bg:#fdfdfc;--fg:#1d1d1f;--muted:#5a5a60;--line:#e2e2e6;--code:#f2f2f5;--link:#0b5cad}
+  @media (prefers-color-scheme:dark){:root{--bg:#141416;--fg:#e8e8ea;--muted:#a0a0a8;--line:#2c2c31;--code:#1e1e22;--link:#6fb1ff}}
+  html{background:var(--bg)}
+  body{max-width:46rem;margin:0 auto;padding:2rem 1rem 4rem;font:16px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;color:var(--fg);background:var(--bg)}
+  h1,h2,h3{line-height:1.25;margin-top:2rem}h1{margin-top:0}
+  a{color:var(--link)}
+  code{background:var(--code);padding:.1em .3em;border-radius:4px;font-size:.92em}
+  pre{background:var(--code);padding:.8rem 1rem;border-radius:6px;overflow-x:auto}pre code{padding:0;background:none}
+  table{border-collapse:collapse;width:100%;display:block;overflow-x:auto}th,td{border:1px solid var(--line);padding:.4rem .6rem;text-align:left}
+  nav.top{font-size:.9rem;color:var(--muted);margin-bottom:1.5rem}
+  </style>
+</head>
+<body>
+<h1 id="mc2-rust-010-release-notes">MC2 Rust 0.1.0: release notes</h1>
+<p>Where a statement rests on a recorded run, the run is named.</p>
+<h2 id="what-this-is">What this is</h2>
+<p>An all-Rust port of the 2001 game MechCommander 2, based on
+Microsoft's 2006 shared-source release of it (alariq's Linux port is the
+behaviour reference). Not affiliated with or endorsed by Microsoft,
+FASA, Catalyst Game Labs, Topps, or alariq. It needs your own copy of
+the original game data (not included). See <a
+href="README.html">README.md</a> and <a
+href="INSTALL.html">INSTALL.md</a>.</p>
+<h2 id="what-is-in-010">What is in 0.1.0</h2>
+<p>The scope:</p>
+<ul>
+<li>The game as one Rust program (<code>mc2</code>): window and render
+loop through wgpu (Metal on macOS, Vulkan on Linux, DirectX 12 or Vulkan
+on Windows), the simulation, audio, the on-screen interface and the
+menus.</li>
+<li>Missions: selection and orders, hot keys, camera, the in-mission
+interface (control panel, unit bar, tactical map, objectives, messages),
+weapon and other effects, sound, radio and music, and the mission end
+with the results screen.</li>
+<li>Campaign: main menu, mission selection, briefings, logistics (mech
+bay, mech lab, purchase, pilot ready room), the results flow (salvage,
+pilot promotion and skill gain, carrying the force into the next
+mission), movies, saving and loading. The plan covers the 24 campaign
+missions and the 5 tutorials.</li>
+<li>The interface text is read from your own data: the string resource
+library (<code>mc2res.dll</code> in a retail install) in your data
+folder. Without it the game stops with "game data incomplete" before any
+screen. The retail <code>mc2res.dll</code> path is fixture-tested only
+(a synthetic test library, not a retail file).</li>
+<li>Upscaled art, built from your own data on first start and optional
+(<code>--hires-dir off</code>).</li>
+<li>Optional separate packs, off by default: a replacement pilot-voice
+pack (<code>--voice-dir</code>) and a prototype pack of replacement mech
+models (<code>--art-dir</code>). No such pack ships with or is published
+for this release.</li>
+<li>Packages for Linux x86_64 (<code>.tar.gz</code>), Windows x86_64
+(<code>.zip</code>) and macOS arm64 (<code>.zip</code> with an ad-hoc
+signed app), built reproducibly from a committed revision of the
+development repository.</li>
+<li>A built-in check, <code>mc2 --selftest-play</code>, that plays
+<code>mc2_01</code> headless for 9,000 frames and then to its win by its
+objectives. Differences from the original that were decided on purpose
+are in <a href="KNOWN-DIFFERENCES.html">KNOWN-DIFFERENCES.md</a>.</li>
+</ul>
+<h2 id="what-was-verified">What was verified</h2>
+<p>On 2026-10-28 each package's <code>--selftest-play</code> passed with
+the player's own data: 9,000 frames, result 0, objective check passed
+for <code>mc2_01</code> (6 objectives, 183 frames). Where each ran:</p>
+<table>
+<thead>
+<tr>
+<th>Package</th>
+<th>Where it ran</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>macOS arm64</td>
+<td>the build Mac</td>
+</tr>
+<tr>
+<td>Linux x86_64</td>
+<td>a Fedora machine</td>
+</tr>
+<tr>
+<td>Windows x86_64</td>
+<td>Linux with Proton GE-Proton11-9, <strong>not</strong> Windows</td>
+</tr>
+</tbody>
+</table>
+<p>The Linux log is transcribed from run notes, because no raw runtime
+log was kept.</p>
+<h2 id="known-limitations">Known limitations</h2>
+<ul>
+<li>The Windows package has not been run on Windows.</li>
+<li>The macOS app is ad-hoc signed and not notarised; Gatekeeper asks
+you to confirm the first start (see <a
+href="INSTALL.html">INSTALL.md</a>).</li>
+<li>Multiplayer is not ported (D-22). The support VTOL model and the
+airstrike bomber's sound and shadow are not drawn (see <a
+href="KNOWN-DIFFERENCES.html">KNOWN-DIFFERENCES.md</a>).</li>
+<li>No full 24-mission playthrough was recorded for this release, so
+this page makes no claim that every campaign mission can be played
+through to its end.</li>
+<li>The player guide (<a href="../../packaging/README-PLAYERS.html"><code>packaging/README-PLAYERS.html</code></a>) lists
+further known gaps (some enemy pilot AI script functions, vehicle
+behaviour, air and sensor strikes).</li>
+<li>Release package verification was recorded for <code>mc2_01</code>
+only. Report anything else that breaks.</li>
+<li>Licence: Ms-SSLPL for source and binaries; see <a
+href="README.html">README.md</a> and <a
+href="../../LICENSE-MS-SSLPL.txt">LICENSE-MS-SSLPL.txt</a>.</li>
+</ul>
+<h2 id="differences-from-the-original">Differences from the
+original</h2>
+<p>See <a href="KNOWN-DIFFERENCES.html">KNOWN-DIFFERENCES.md</a>.</p>
+</body>
+</html>
