@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="generator" content="pandoc 3.12.1" />
@@ -190,6 +190,7 @@
   code{background:var(--code);padding:.1em .3em;border-radius:4px;font-size:.92em}
   pre{background:var(--code);padding:.8rem 1rem;border-radius:6px;overflow-x:auto}pre code{padding:0;background:none}
   table{border-collapse:collapse;width:100%;display:block;overflow-x:auto}th,td{border:1px solid var(--line);padding:.4rem .6rem;text-align:left}
+  @media (prefers-color-scheme:dark){code span{color:var(--fg)!important}}
   nav.top{font-size:.9rem;color:var(--muted);margin-bottom:1.5rem}
   </style>
 </head>
@@ -201,7 +202,8 @@ render loop, game states, the fixed-step live simulation
 input and the camera visibility producer. Headless runs
 (<code>mc2 --headless</code>, <code>HeadlessRun</code>) never open a
 window. <code>--hires-dir DIR</code> (or <code>$MC2_HIRES_DIR</code>)
-loads an upscaled texture pack; default off. Missing or corrupt pack
+selects the upscaled texture pack; by default the game builds one
+from the player's data on first start (<code>off</code> keeps the original art). Missing or corrupt pack
 entries keep the original texture and log a line naming the file. The
 production app does not read a <code>hires_dir = ...</code> settings
 file.</p>
@@ -217,8 +219,7 @@ oracle: at most 32 selection boxes per class may differ on a turn during
 camera-edge or intro-frame selection, and the non-<code>iv</code> B/V
 digest fields must remain identical. The app-to-direct-sim replay is
 bit-identical. Terrain-vertex visibility remains exact on turns 2..60;
-turn 1 has the separate 16-vertex clip-edge bound in
-<code>docs/DIFFERENCES.md</code>.</p>
+turn 1 has a separate 16-vertex clip-edge bound.</p>
 <h2 id="the-mission-hud">The mission HUD</h2>
 <p>With the live simulation the mission draws <code>mc2-ui</code>'s
 composed HUD over the scene (<code>src/hud.rs</code>,
@@ -228,8 +229,7 @@ built every frame from the simulation's state. Selection, tactical-map
 and unit-bar camera moves and pause (which stops the simulation's
 objects, as <code>Mission::update</code> does while paused) are applied
 by the app. Player orders go through one hook,
-<code>hud::apply_order_intents</code>, which reports them unavailable
-until the orders bridge (<code>feat/rust-a3-orders</code>) is merged.
+<code>hud::apply_order_intents</code>, which hands them to the orders bridge.
 What the HUD cannot show yet is listed in
 <code>hud_data::UNAVAILABLE</code> and in the headless report's
 <code>sim_unavailable</code>. Evidence: <code>tests/hud_live.rs</code>

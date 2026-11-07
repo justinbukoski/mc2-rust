@@ -6,7 +6,7 @@ not included. The program is the `mc2` binary.
 ## Licence
 
 The source and the binaries are under the Microsoft Shared Source Limited Permissive License (Ms-SSLPL); see
-[LICENSE-MS-SSLPL.txt](LICENSE-MS-SSLPL.txt), [NOTICE](NOTICE) and the third-party crate licences in the packages
+[LICENSE-MS-SSLPL.txt](https://justinbukoski.github.io/mc2-rust/LICENSE-MS-SSLPL.txt), [NOTICE](https://justinbukoski.github.io/mc2-rust/NOTICE) and the third-party crate licences in the packages
 (`THIRD-PARTY-NOTICES.txt`).
 
 ## Credits
@@ -17,4 +17,4 @@ The source and the binaries are under the Microsoft Shared Source Limited Permis
 Not affiliated with or endorsed by Microsoft, FASA, Catalyst Game Labs, Topps, or alariq. Requires your own copy of the original
 game data.
 
-See [the player guide](packaging/README-PLAYERS.md) for setup details.
+See [the player guide](https://justinbukoski.github.io/mc2-rust/packaging/README-PLAYERS.html) for setup details.

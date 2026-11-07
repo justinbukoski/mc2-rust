@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="generator" content="pandoc 3.12.1" />
@@ -190,13 +190,14 @@
   code{background:var(--code);padding:.1em .3em;border-radius:4px;font-size:.92em}
   pre{background:var(--code);padding:.8rem 1rem;border-radius:6px;overflow-x:auto}pre code{padding:0;background:none}
   table{border-collapse:collapse;width:100%;display:block;overflow-x:auto}th,td{border:1px solid var(--line);padding:.4rem .6rem;text-align:left}
+  @media (prefers-color-scheme:dark){code span{color:var(--fg)!important}}
   nav.top{font-size:.9rem;color:var(--muted);margin-bottom:1.5rem}
   </style>
 </head>
 <body>
 <h1 id="mc2-rust">MC2 Rust</h1>
 <p>A port of the 2001 game MechCommander 2, written in Rust, for macOS,
-Linux (including Steam Deck) and Windows. You need your own copy of the
+Linux and Windows. You need your own copy of the
 original game's data to play; game data is not included.</p>
 <h2 id="download-and-play">Download and play</h2>
 <p>You do not need to compile anything. Ready-to-run builds are on the
@@ -217,7 +218,7 @@ page</a>:</p>
 href="https://github.com/justinbukoski/mc2-rust/releases/download/v0.1.0/mc2-rust-0.1.0-5dcc8c14c146-macos-arm64.zip">mc2-rust-0.1.0-5dcc8c14c146-macos-arm64.zip</a></td>
 </tr>
 <tr>
-<td>Linux x86_64 / Steam Deck</td>
+<td>Linux x86_64 (glibc 2.43 or newer)</td>
 <td><a
 href="https://github.com/justinbukoski/mc2-rust/releases/download/v0.1.0/mc2-rust-0.1.0-5dcc8c14c146-linux-x86_64.tar.gz">mc2-rust-0.1.0-5dcc8c14c146-linux-x86_64.tar.gz</a></td>
 </tr>

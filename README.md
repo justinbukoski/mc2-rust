@@ -1,12 +1,12 @@
 # MC2 Rust
 
-A port of the 2001 game MechCommander 2, written in Rust, for macOS, Linux (including Steam Deck) and Windows. You need your own copy
+A port of the 2001 game MechCommander 2, written in Rust, for macOS, Linux and Windows. You need your own copy
 of the original game's data to play; game data is not included. No compiling needed: download a ready-to-run build below.
 
 | System | Download |
 | --- | --- |
 | macOS (Apple Silicon) | [mc2-rust-0.1.0-5dcc8c14c146-macos-arm64.zip](https://github.com/justinbukoski/mc2-rust/releases/download/v0.1.0/mc2-rust-0.1.0-5dcc8c14c146-macos-arm64.zip) |
-| Linux x86_64 / Steam Deck | [mc2-rust-0.1.0-5dcc8c14c146-linux-x86_64.tar.gz](https://github.com/justinbukoski/mc2-rust/releases/download/v0.1.0/mc2-rust-0.1.0-5dcc8c14c146-linux-x86_64.tar.gz) |
+| Linux x86_64 (glibc 2.43 or newer) | [mc2-rust-0.1.0-5dcc8c14c146-linux-x86_64.tar.gz](https://github.com/justinbukoski/mc2-rust/releases/download/v0.1.0/mc2-rust-0.1.0-5dcc8c14c146-linux-x86_64.tar.gz) |
 | Windows x86_64 | [mc2-rust-0.1.0-5dcc8c14c146-windows-x86_64.zip](https://github.com/justinbukoski/mc2-rust/releases/download/v0.1.0/mc2-rust-0.1.0-5dcc8c14c146-windows-x86_64.zip) |
 
 The documentation is HTML:

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="generator" content="pandoc 3.12.1" />
@@ -255,6 +255,7 @@
   code{background:var(--code);padding:.1em .3em;border-radius:4px;font-size:.92em}
   pre{background:var(--code);padding:.8rem 1rem;border-radius:6px;overflow-x:auto}pre code{padding:0;background:none}
   table{border-collapse:collapse;width:100%;display:block;overflow-x:auto}th,td{border:1px solid var(--line);padding:.4rem .6rem;text-align:left}
+  @media (prefers-color-scheme:dark){code span{color:var(--fg)!important}}
   nav.top{font-size:.9rem;color:var(--muted);margin-bottom:1.5rem}
   </style>
 </head>
@@ -272,14 +273,15 @@ folder with the same name, containing the program,
 <code>LICENSE-MS-SSLPL.txt</code>.</p>
 <h2 id="unpack">Unpack</h2>
 <h3 id="linux-x86_64">Linux x86_64</h3>
-<div class="sourceCode" id="cb1"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tar</span> xzf mc2-rust-0.1.0-<span class="op">&lt;</span>commit<span class="op">&gt;</span>-linux-x86_64.tar.gz</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> mc2-rust-0.1.0-<span class="op">&lt;</span>commit<span class="op">&gt;</span>-linux-x86_64</span>
+<div class="sourceCode" id="cb1"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tar</span> xzf mc2-rust-0.1.0-5dcc8c14c146-linux-x86_64.tar.gz</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> mc2-rust-0.1.0-5dcc8c14c146-linux-x86_64</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="ex">./mc2-rust.sh</span> <span class="at">--version</span></span></code></pre></div>
 <p><code>mc2-rust.sh</code> starts the <code>mc2</code> program in the
 same folder and passes all arguments through; running <code>./mc2</code>
 directly is the same. You need a Vulkan driver and ALSA
-(<code>libasound.so.2</code>). The package was built on Fedora, so it
-needs a glibc as new as that one or newer.</p>
+(<code>libasound.so.2</code>). It needs glibc 2.43 or newer (measured from the
+binary). Older distributions, for example Ubuntu 24.04 (glibc 2.39), cannot
+run this build, and it has not been tested on a Steam Deck.</p>
 <h3 id="windows-x86_64">Windows x86_64</h3>
 <p>Unzip the archive and run <code>mc2.exe</code> from the unpacked
 folder (for example from a command prompt:

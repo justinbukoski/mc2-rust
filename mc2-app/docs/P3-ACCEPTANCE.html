@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="generator" content="pandoc 3.12.1" />
@@ -255,6 +255,7 @@
   code{background:var(--code);padding:.1em .3em;border-radius:4px;font-size:.92em}
   pre{background:var(--code);padding:.8rem 1rem;border-radius:6px;overflow-x:auto}pre code{padding:0;background:none}
   table{border-collapse:collapse;width:100%;display:block;overflow-x:auto}th,td{border:1px solid var(--line);padding:.4rem .6rem;text-align:left}
+  @media (prefers-color-scheme:dark){code span{color:var(--fg)!important}}
   nav.top{font-size:.9rem;color:var(--muted);margin-bottom:1.5rem}
   </style>
 </head>
@@ -426,7 +427,7 @@ seconds at 30 Hz), then must assert <code>mis_PLAYER_WIN_BIG</code>,
 <code>GameState::Results</code>, a drawn Results screen, and the frame
 budget.</p>
 <p>Run the no-window progress probe after merges:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> rust</span>
+<div class="sourceCode" id="cb1"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ex">cargo</span> run <span class="at">-p</span> mc2-app <span class="at">--bin</span> p3_acceptance</span></code></pre></div>
 <p>It prints the parsed action count, every executed player step, and
 the first unavailable production seam or replay failure. When the
