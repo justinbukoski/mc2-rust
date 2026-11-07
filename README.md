@@ -16,6 +16,7 @@ The documentation is HTML:
 - [Release notes 0.1.0](https://justinbukoski.github.io/mc2-rust/docs/release/RELEASE-NOTES-0.1.0.html)
 - [Known differences from the original](https://justinbukoski.github.io/mc2-rust/docs/release/KNOWN-DIFFERENCES.html)
 - [Player guide and controls](https://justinbukoski.github.io/mc2-rust/packaging/README-PLAYERS.html)
+- [Contributors: the AI models that built it](https://justinbukoski.github.io/mc2-rust/CONTRIBUTORS.html)
 
 Licence: Ms-SSLPL ([LICENSE-MS-SSLPL.txt](LICENSE-MS-SSLPL.txt), [NOTICE](NOTICE)). Not affiliated with or endorsed by Microsoft,
 FASA, Catalyst Game Labs, Topps, or alariq.
